@@ -1,0 +1,21 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #54656f;
+}
+
+#upBorder {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: 15%;
+    pointer-events: none;
+    background-color: #111b21;
+}
+
+
+.field {
+    font-weight: bold;
+}
