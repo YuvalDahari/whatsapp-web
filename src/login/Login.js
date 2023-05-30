@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Background from "../background/Background.js"
 import FormItem from "../form/FormItem.js";
-import {setCurr, isNotConnected} from '../Users/user.js';
+import {setCurr, isNotConnected} from '../users/user.js';
 import "./Login.css"
 import FormBottom from '../form/FormBottom.js';
 

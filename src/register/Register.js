@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Background from '../background/Background.js';
 import FormBottom from '../form/FormBottom.js';
 import FormItem from '../form/FormItem.js';
-import {AddUser, isNotConnected} from '../Users/user.js';
+import {AddUser, isNotConnected} from '../users/user.js';
 import "./Register.css"
 
 function Register({ users, setUsers, currentUser }) {

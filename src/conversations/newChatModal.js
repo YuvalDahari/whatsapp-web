@@ -1,4 +1,4 @@
-import { AddFriend } from "../Users/user";
+import { AddFriend } from "../users/user";
 
 function NewChatModal({users, setUsers, currentUser, setCurrentUser }) {
 
