@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import Background from "../background/Background.js"
 import ChatSection from "../chatSection/ChatSection.js";
 import Conversations from "../conversations/Conversations.js";
-import NewChatModal from "../conversations/newChatModal.js";
-import {setCurr, isNotConnected} from '../Users/user.js';
+import NewChatModal from "../conversations/NewChatModal.js";
+import {setCurr, isNotConnected} from '../users/user.js';
 import "./Messages.css"
 import { useNavigate } from "react-router-dom";
 

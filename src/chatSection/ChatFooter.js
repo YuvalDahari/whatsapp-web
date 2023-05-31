@@ -1,4 +1,4 @@
-import { AddMessage } from "../Users/user";
+import { AddMessage } from "../users/user";
 import React, { useState, } from 'react';
 
 function ChatFooter({ users, setUsers, currentUser, setCurrentUser }) {

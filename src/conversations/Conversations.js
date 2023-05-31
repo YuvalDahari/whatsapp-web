@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Conversation from "./Conversation";
-import {isNotConnected} from '../Users/user.js';
+import {isNotConnected} from '../users/user.js';
 import ConversationsHeader from './ConversationsHeader';
 
 function Conversations({currentUser, setCurrentUser}) {
