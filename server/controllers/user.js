@@ -35,7 +35,7 @@ const getUserByUsername = async(req, res) => {
         return res.status(401).json("Not authorized!");
     }
     const data = await userService.getUserByUsername(req.username);
-    res.json([data].map(({username, displayName, profilePic}) => ({username, displayName, profilePic}))[0]);
+    res.json(data);
 };
 
 const getToken = async(req, res) => {
@@ -55,7 +55,7 @@ const getToken = async(req, res) => {
 
     const token = await userService.tryLogin(req.body.username, req.body.password);
     if (!token) {
-        return res.status(401).json({"title": "Wrong password ..."});
+        return res.status(404).json({"title": "Wrong password ..."});
     }
 
     res.end(token);
