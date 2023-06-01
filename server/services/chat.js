@@ -70,10 +70,35 @@ const getMessageByID = async (ID) => {
 }
 
 const getChat = async (username, chatID) => {
-    const chat = await getChatByUserAndID(username, chatID);
+    // check if chatID exists and sender part of it
+    const user = await UserService.getIDByUsername(username);
+    if (!user) {
+        return false;
+    }
+    // get chat the username is part of
+    let chat = await Chat.findById(chatID).findOne({ users: user._id }).populate([{
+        path: 'messages',
+        select: 'created sender content',
+        populate: {
+            path: 'sender',
+            select: 'username displayName profilePic -_id'
+        }
+    }, {
+        path: 'users',
+        select: 'username displayName profilePic -_id'
+    }]);
     if (!chat) {
         return false;
     }
+    chat = await chat.toJSON();
+    for (i = 0; i < chat.messages.length; i++) {
+        chat.messages[i].id = chat.messages[i]._id
+        delete chat.messages[i]._id
+        delete chat.messages[i].__v
+    }
+    chat.id = chat._id
+    delete chat._id
+    delete chat.__v
     return chat;
     // get user id and get chat ID if part of - id, users, messages
 }
@@ -89,7 +114,39 @@ const deleteChat = async (username, chatID) => {
 
 const sendMessage = async (sender, chatID, messageContent) => {
     // check if chatID exists and sender part of it
+    const chat = await getChatByUserAndID(sender, chatID);
+    if (!chat) {
+        return false;
+    }
+    let user = await UserService.getIDByUsername(sender);
+    if (!user) {
+        return false;
+    }
     // if so, send message on this chat via this sender
+    const message = new Message({
+        sender: user._id,
+        content: messageContent
+    });
+    const newMessage = await message.save();
+
+    const upda = await Chat.findOneAndUpdate(
+        { _id: chat._id }, 
+        { $push: { messages: newMessage._id } }
+    );
+    if (!upda) {
+        return false;
+    }
+
+    return {
+        id: newMessage._id,
+        created: newMessage.created,
+        sender: {
+            username: user.username,
+            displayName: user.displayName,
+            profilePic: user.profilePic
+        },
+        content: newMessage.content
+    };
     // return - id, created, sender, content
 }
 
@@ -98,16 +155,39 @@ const getChatByUserAndID = async (username, chatID) => {
     if (!user) {
         return false;
     }
-    // get all chats the username is part of
+    // get chat the username is part of
     const chat = await Chat.findById(chatID).findOne({ users: user._id });
     if (!chat) {
         return false;
     }
+    return chat;
 }
 
 const getMessages = async (username, chatID) => {
     // check if chatID exists and sender part of it
-    // if so, send message on this chat via this sender
+    const user = await UserService.getIDByUsername(username);
+    if (!user) {
+        return false;
+    }
+    // get chat the username is part of
+    let chat = await Chat.findById(chatID).findOne({ users: user._id }).populate({
+        path: 'messages',
+        select: 'created sender content',
+        populate: {
+            path: 'sender',
+            select: 'username -_id'
+        }
+    });
+    if (!chat) {
+        return false;
+    }
+    chat = await chat.toJSON();
+    for (i = 0; i < chat.messages.length; i++) {
+        chat.messages[i].id = chat.messages[i]._id
+        delete chat.messages[i]._id
+    }
+    return chat.messages;
+
     // return - id, created, sender (only username), content
 }
 
