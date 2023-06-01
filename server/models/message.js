@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+var ObjectId = require('mongodb').ObjectId;
+
 const Message = new Schema({
     created: { type: Date, default: Date.now },
     sender: { type: ObjectId, ref: 'User' },

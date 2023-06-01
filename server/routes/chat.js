@@ -1,17 +1,18 @@
 const express = require('express');
 var router = express.Router();
-//const userController = require('../controllers/user');
+const userController = require('../controllers/user');
+const chatController = require('../controllers/chat');
 
 router.route('/')
-    .post(() => {console.log("new chat");})
-    .get(() => {console.log("get chats");});
+    .post(userController.isLoggedIn, chatController.createChat)
+    .get(userController.isLoggedIn, chatController.getChats);
 
 router.route('/:id')
-    .delete(() => {console.log("delete specific chat");})
-    .get(() => {console.log("get specific chat");});
+    .delete(userController.isLoggedIn, chatController.deleteChat)
+    .get(userController.isLoggedIn, chatController.getChat);
 
 router.route('/:id/Messages')
-    .post(() => {console.log("new message");})
-    .get(() => {console.log("get chat messages array");});
+    .post(userController.isLoggedIn, chatController.sendMessage)
+    .get(userController.isLoggedIn, chatController.getMessages);
 
 module.exports = router;

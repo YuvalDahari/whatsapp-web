@@ -15,7 +15,15 @@ const createUser = async (username, password, displayName, profilePic) => {
 };
 
 const getUserByUsername = async (username) => {
-    return await User.findOne({ username: username });
+    return await User.findOne({ username: username }).select('username displayName profilePic -_id');
+};
+
+const getUserByID = async (id) => {
+    return await User.findById(id).select('username displayName profilePic -_id');
+};
+
+const getIDByUsername = async (username) => {
+    return await User.findOne({ username: username }).select('username displayName profilePic _id');
 };
 
 const tryLogin = async (username, password) => {
@@ -31,4 +39,4 @@ const tryLogin = async (username, password) => {
 };
 
 
-module.exports = { createUser, getUserByUsername, tryLogin };
+module.exports = { createUser, getUserByUsername, tryLogin, getIDByUsername, getUserByID };
