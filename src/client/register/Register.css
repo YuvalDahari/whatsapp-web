@@ -1,0 +1,47 @@
+.link-color {
+    color: #111b21;
+    font-weight: bold;
+}
+
+.link-color:hover {
+    color:#aebac1 !important;
+}
+  
+  
+
+#selectedImage {
+    height: auto;
+    max-height: 150px;
+    margin-bottom: 5px;
+    aspect-ratio: 1/1;
+}
+
+.form-register {
+    top: 13.6vh;
+    background-color: #fff;
+    border: 1px solid #000;
+    padding: 20px;
+    min-width: 60vw;;
+    max-width: 800px;
+    border-radius: 10px;
+    margin-top: 30px;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+@media (max-width: 767px) {
+    #selectedImage {
+        max-height: 150px;
+    }
+}
+
+.error {
+    border: 2px solid red;
+}
+
+.error-message {
+    text-align: center;
+    color: red;
+    font-size: 12px;
+    padding-left: 10px;
+}

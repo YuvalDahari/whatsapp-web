@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 
 const createUser = async (req, res) => {
     // check fields
-    errors = {
+    let errors = {
         "errors": [],
         "title": "One or more validation errors occurred."
     }
@@ -39,7 +39,7 @@ const getUserByUsername = async(req, res) => {
 };
 
 const getToken = async(req, res) => {
-    errors = {
+    let errors = {
         "errors": [],
         "title": "One or more validation errors occurred."
     }
