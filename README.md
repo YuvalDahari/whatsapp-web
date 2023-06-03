@@ -1,6 +1,7 @@
 # OurWhatsApp
 
 OurWhatsApp is an intuitive web-based messaging application that facilitates real-time communication between users. The application showcases a sleek, modern interface equipped with user registration, authentication, and profile management capabilities.
+The project includes both client (React application) and server (Node.JS application). Each one of them can run seperately to allow using with different application for the second end.
 
 ## Getting Started
 
@@ -11,13 +12,46 @@ Follow these instructions to set up the project on your local machine:
 <pre>
 git clone https://github.com/yonikal56/our-whatsapp-1b
 cd our-whatsapp-1b
-npm install
-npm start
 </pre>
 
-3. Register a new account or log in with an existing one.
+### Run Server
 
-Please note that this project currently only serves as a front-end prototype. All data is stored in local storage, and there isn't functionality to communicate with other users yet.
+Follow these instruction to run the server on your local machine:
+
+1. Go to "server" folder inside the project.
+2. Run "npm install".
+3. Create config folder.
+4. Create .env.local file with the following content:
+<pre>
+CONNECTION_STRING="mongodb://127.0.0.1:27017"
+DB_NAME="our-whatsapp-db"
+PORT=12345
+TOKEN_KEY=""
+</pre>
+- CONNECTION_STRING is the connection string of mongodb (for example, if installed locally it will be something like mongodb://127.0.0.1:27017). Change if needed.
+- DB_NAME is the name of the database inside mongodb. Also can be changed with the default value of our-whatsapp-db.
+- PORT is the port the server runs on, adapt if needed (for example if the post is already used).
+- TOKEN_KEY is a secret key for the JWT tokens the server uses for authentication. Set it to a secret string of your choice.
+Do not upload this file!
+
+If you want you can also create .env.test file and .env file (with the same fields), but you only need one of them to run the server correctly.
+
+To run the server after this file is set, run one of the following commands:
+1. "npm start" to use .env.local file.
+2. "npm test" to use .env.test file.
+3. "node app.js" to run with .env file.
+
+
+If you run the server, you can access the client from the browser by navigating to the base url of the server.
+
+### Run Client
+
+Follow these instruction to run the client on your local machine:
+
+1. Go to "server" folder inside the project.
+2. Run "npm install".
+3. Set ... to point to the server base url.
+4. run "npm start".
 
 ## Features
 
@@ -28,42 +62,6 @@ Please note that this project currently only serves as a front-end prototype. Al
 - Add friends, send messages, and display conversations in their chat.
 - Navigate between chats.
 - Display time, last messages and friends photos of each conversation.
-
-## Directory & File Overview
-
-### Review
-
-The project is primarily built with JavaScript (React) and includes various elements ranging from components to data management utilities and assets. This section provides an overview of these key elements:
-
-- `App.js`: Initializes the user data with the local storage and handles the routing of the main pages.
-- `login`: Manages the login page. Simple yet integrated with local storage.
-- `register`: Manages the registration page. All fields undergo validation based on a predefined set of rules.
-- `special pages`: Handles attempts to access the app from invalid URLs.
-- `messages`: Manages the messages page.
-- `conversations`: Handles the conversations component on the messages page.
-- `chatSection`: Manages the chatSection component on the messages page.
-- `background`: Establishes general guidelines for the backgrounds of different pages.
-- `Users`: Stores utility functions to manage the data.
-- `photos`: Stores the photos used in the project.
-
-### Hierarchy
-
-- public
-  - css
-    - bootstrap.min.css
-  - photos
- 
-- src
-  - Users
-  - background
-  - chatSection
-  - conversations
-  - form
-  - login
-  - messages
-  - register
-  - special pages
-  - App.js
 
 ## Future Enhancements
 
