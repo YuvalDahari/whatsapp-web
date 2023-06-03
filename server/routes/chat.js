@@ -8,11 +8,11 @@ router.route('/')
     .get(userController.isLoggedIn, chatController.getChats);
 
 router.route('/:id')
-    .delete(userController.isLoggedIn, chatController.deleteChat)
-    .get(userController.isLoggedIn, chatController.getChat);
+    .delete(userController.isLoggedIn, chatController.checkID, chatController.deleteChat)
+    .get(userController.isLoggedIn, chatController.checkID, chatController.getChat);
 
 router.route('/:id/Messages')
-    .post(userController.isLoggedIn, chatController.sendMessage)
-    .get(userController.isLoggedIn, chatController.getMessages);
+    .post(userController.isLoggedIn, chatController.checkID, chatController.sendMessage)
+    .get(userController.isLoggedIn, chatController.checkID, chatController.getMessages);
 
 module.exports = router;

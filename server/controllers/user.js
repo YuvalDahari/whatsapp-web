@@ -20,19 +20,19 @@ const createUser = async (req, res) => {
         errors.errors.push('ProfilePic is required');
     }
     if (errors.errors.length > 0) {
-        return res.status(400).json(errors);
+        return res.status(400).end();
     }
 
     const json = await userService.createUser(req.body.username, req.body.password, req.body.displayName, req.body.profilePic);
     if (!json) {
-        return res.status(409).json({"title": "Conflict"});
+        return res.status(409).end();
     }
     res.end();
 };
 
 const getUserByUsername = async(req, res) => {
     if (req.params.username != req.username) {
-        return res.status(401).json("Not authorized!");
+        return res.status(401).end();
     }
     const data = await userService.getUserByUsername(req.username);
     res.json(data);
@@ -50,13 +50,17 @@ const getToken = async(req, res) => {
         errors.errors.push('Password is required');
     }
     if (errors.errors.length > 0) {
-        return res.status(400).json(errors);
+        return res.status(400).end();
     }
 
-    const token = await userService.tryLogin(req.body.username, req.body.password);
-    if (!token) {
-        return res.status(404).json({"title": "Wrong password ..."});
+    const user = await userService.tryLogin(req.body.username, req.body.password);
+    if (!user) {
+        return res.status(404).end();
     }
+
+    // if sucess
+    const data = { username: user.username, id: user._id }
+    const token = jwt.sign(data, process.env.TOKEN_KEY)
 
     res.end(token);
 };
@@ -68,14 +72,14 @@ const isLoggedIn = (req, res, next) => {
         try {
             const data = jwt.verify(token, process.env.TOKEN_KEY);
             req.username = data.username;
+            req.id = data.id;
             return next()
         } catch (err) {
-            console.log(err);
-            return res.status(401).send("Invalid Token");
+            return res.status(401).end();
         }
     }
     else
-        return res.status(403).send('Token required');
+        return res.status(401).end();
 }
 
 module.exports = {createUser, getUserByUsername, getToken, isLoggedIn};
