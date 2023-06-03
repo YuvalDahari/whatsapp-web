@@ -8,7 +8,7 @@
     --message-bg-color-right: #DCF8C6;
     --main-text-color: #000000;
     --highlight-color: #96d49c;
-    --main-image: url('../../public/photos/3.jpg'); 
+    --main-image: url('../../../public/photos/3.jpg'); 
 
 }
 
@@ -22,7 +22,7 @@
     --message-bg-color-right: #636363; 
     --main-text-color: #FFFFFF;
     --highlight-color: rgb(33, 60, 55);
-    --main-image: url('../../public/photos/5.png'); 
+    --main-image: url('../../../public/photos/5.png'); 
 }
 
 /* Girly Theme */
@@ -35,7 +35,7 @@
     --message-bg-color-right: #fdcdd6;
     --main-text-color: #333;
     --highlight-color: #ff85ab;
-    --main-image: url('../../public/photos/6.jpg'); 
+    --main-image: url('../../../public/photos/6.jpg'); 
 }
 
 /* if one want to add more themes - HERE :) */
