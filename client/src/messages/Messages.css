@@ -1,6 +1,19 @@
 /* Default Theme */
 :root {
-    --back-color: #3c515d;
+    --back-color: #cde7e5;
+    --main-bg-color: #ffffff; 
+    --secondary-bg-color: #c6cdf8;
+    --header-bg-color: #7dc1e6;
+    --message-bg-color-left: #FFFFFF;
+    --message-bg-color-right: #8fd3f1;
+    --main-text-color: #000000;
+    --highlight-color: #96d49c;
+    --main-image: url('../../public/photos/3.jpg'); 
+    --back-image: url('../../public/photos/7.jpg');
+
+}
+/* .green {
+    --back-color: #1e5a66;
     --main-bg-color: #96d49c; 
     --secondary-bg-color: #DCF8C6;
     --header-bg-color: #258f5f;
@@ -10,19 +23,21 @@
     --highlight-color: #96d49c;
     --main-image: url('../../../public/photos/3.jpg'); 
 
-}
+} */
 
 /* Dark Theme */
 .dark {
     --back-color: #1f0404;
     --main-bg-color: #242424; 
     --secondary-bg-color: #363636;
-    --header-bg-color: #1c1c1c;
+    --header-bg-color: #393838;
     --message-bg-color-left: #3f3f3f;
     --message-bg-color-right: #636363; 
     --main-text-color: #FFFFFF;
     --highlight-color: rgb(33, 60, 55);
-    --main-image: url('../../../public/photos/5.png'); 
+    --main-image: url('../../public/photos/5.png');
+    --back-image: url('../../public/photos/9.png');
+
 }
 
 /* Girly Theme */
@@ -35,7 +50,9 @@
     --message-bg-color-right: #fdcdd6;
     --main-text-color: #333;
     --highlight-color: #ff85ab;
-    --main-image: url('../../../public/photos/6.jpg'); 
+    --main-image: url('../../public/photos/6.jpg');
+    --back-image: url('../../public/photos/8.jpg');
+
 }
 
 /* if one want to add more themes - HERE :) */
@@ -77,6 +94,7 @@ button.btn-secondary {
     border: 1px solid #aebac1;
     height: 5vh;
     color: var(--main-text-color);
+    border: 1px solid var(--main-text-color);
 }
 
 
@@ -85,7 +103,7 @@ button.btn-secondary {
 }
 
 body {
-    background-color: var(--back-color);
+    background-image: var(--back-image);
 }
 
 .icon {
@@ -117,6 +135,7 @@ body {
     min-height: 60px;
     background-color: var(--header-bg-color);
     border-radius: 5px;
+    border-bottom: 2px solid var(--main-text-color);
 }
 
 .right-header .media-body {
@@ -141,6 +160,7 @@ body {
     border-radius: 10px;
     background-color: var(--main-bg-color);
     z-index: 1;
+    border: 2px solid var(--main-text-color);
 }
 
 
@@ -156,6 +176,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 10px;
+    border: 2px solid var(--main-text-color);
 }
 
 
@@ -225,6 +246,7 @@ body {
     flex-direction: column;
     width: 20vw;
     overflow-y: auto;
+    margin-right: 10px;
 }
 
 .left-header {
@@ -233,6 +255,8 @@ body {
     background-color: var(--header-bg-color);
     height: 60px;
     z-index: 1;
+    margin-bottom: 3px;;
+    border: 2px solid var(--main-text-color);
 }
 
 .name {
@@ -266,6 +290,7 @@ body {
     font-size: max(1vw, 10px);
     flex-direction: column;
     margin-bottom: 2px;
+    border: 1px solid var(--main-text-color);
 }
 
 .left-header>div {
@@ -354,6 +379,7 @@ body {
     background-color: var(--header-bg-color);
     color: var(--main-text-color);
     height: 5vh;
+    border: 1px solid var(--main-text-color);
 }
 
 .logout-btn:hover {
@@ -370,10 +396,15 @@ body {
     background-color: var(--header-bg-color);
 }
 
+.footer-btn:disabled {
+    background-color: var(--back-color);
+}
+
 #send-group {
     display: flex;
     margin-top: auto;
     max-width: 80vw;
+    border-top: 2px solid var(--main-text-color);
 }
 
 .media {
