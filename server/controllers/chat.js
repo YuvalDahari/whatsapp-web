@@ -1,6 +1,9 @@
 const chatService = require('../services/chat')
 
 const createChat = async (req, res) => {
+    if (!req.body.username) {
+        return res.status(400).end();
+    }
     const json = await chatService.createChat(req.username, req.body.username);
     if (!json) {
         return res.status(401).end();
@@ -41,6 +44,9 @@ const getMessages = async (req, res) => {
 };
 
 const sendMessage = async (req, res) => {
+    if (!req.body.msg) {
+        return res.status(400).end();
+    }
     const json = await chatService.sendMessage(req.username, req.params.id, req.body.msg);
     if (!json) {
         return res.status(401).end();
