@@ -5,6 +5,7 @@ import NewChatModal from "../conversations/NewChatModal.js";
 import ThemeModal from './ThemeModal.js';
 import "./Messages.css"
 import { useNavigate } from "react-router-dom";
+import socketManager from '../socketManager/socketManager.js';
 
 export const RefreshContext = createContext();
 export const CurrentConversationContext = createContext();  
@@ -24,6 +25,7 @@ function Messages() {
     function logout() {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('currConversation');
+        socketManager.disconnect;                    
         navigate('/login');
     }
     

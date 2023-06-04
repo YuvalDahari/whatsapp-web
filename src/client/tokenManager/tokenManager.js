@@ -1,4 +1,4 @@
-const serverPath = "http://localhost:5000/api/";
+import { serverPath } from "../../App";
 
 export async function fetchWithToken(req) {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));

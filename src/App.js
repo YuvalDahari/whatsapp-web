@@ -4,6 +4,8 @@ import Register from "./client/register/Register";
 import Messages from "./client/messages/Messages";
 import NotFound from "./client/special pages/notFound";
 
+export const serverPath = "http://localhost:5000/api/";
+
 function App() {
   return (
     <BrowserRouter>

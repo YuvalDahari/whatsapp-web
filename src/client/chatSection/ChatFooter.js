@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { fetchWithToken } from '../tokenManager/tokenManager';
 import { CurrentConversationContext, RefreshContext } from "../messages/Messages";  // import RefreshContext
+import socketManager from '../socketManager/socketManager.js';
 
 function ChatFooter() {
   const [messageText, setMessageText] = useState('');
@@ -24,6 +25,14 @@ function ChatFooter() {
       body : JSON.stringify(message),
     };
     await fetchWithToken(req);
+
+    let sender = JSON.parse(localStorage.getItem('currentUser'));
+    // Send the 'newMsg' event
+    socketManager.socket.emit("newMsg", {
+      sender: sender.username,
+      reciverId: currConversation.id,
+    });
+
     setMessageText('');  // Clear the message input after sending
     setRefresh(!refresh);  // Flip the refresh state to trigger re-fetch of messages
   };
