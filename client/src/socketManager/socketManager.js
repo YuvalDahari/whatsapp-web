@@ -1,5 +1,6 @@
 import { io } from 'socket.io-client';
 import { AddNotification } from '../conversations/Conversations'
+import { useEffect } from 'react';
 
 const socketManager = {
   socket: null,
@@ -22,8 +23,10 @@ const socketManager = {
 
   addNewMsgListener: () => {
     if (socketManager.socket) {
-      // Add event listener for the "newMsg" event
-      socketManager.socket.on("newMsg", socketManager.handleNewMsg);
+      useEffect(() => {
+          // Add event listener for the "newMsg" event
+          socketManager.socket.on("newMsg", socketManager.handleNewMsg);
+      }, [socketManager.socket])
     }
   },
 
