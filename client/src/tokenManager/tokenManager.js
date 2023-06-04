@@ -1,6 +1,7 @@
-const serverPath = "http://localhost:5000/api/";
+const serverPath = process.env.REACT_APP_SERVER_PATH;
 
 export async function fetchWithToken(req) {
+  debugger;
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const token = currentUser && currentUser.token ? currentUser.token : {};
 
