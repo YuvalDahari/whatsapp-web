@@ -50,8 +50,19 @@ Follow these instruction to run the client on your local machine:
 
 1. Go to "server" folder inside the project.
 2. Run "npm install".
-3. Set ... to point to the server base url.
+3. Create .env file with the following content:
+<pre>
+SERVER_PATH="http://localhost:12345"
+</pre>
+- SERVER_PATH is the base path of the server. http://localhost:12345 is the base url of our server, adapt if you need.
 4. run "npm start".
+
+
+## Folder structure
+Our project include 2 base folders - client and server.
+The client folder includes all the client react application files - all componenets, script and everything that is necessary for the client to run.
+The server folder includes all the server express application files - controllers, models, services and routes. 
+The server also includes public folder that serves the client application when going to the base url path of the server.
 
 ## Features
 
