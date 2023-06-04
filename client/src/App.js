@@ -1,10 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./client/login/Login";
-import Register from "./client/register/Register";
-import Messages from "./client/messages/Messages";
-import NotFound from "./client/special pages/notFound";
-
-export const serverPath = "http://localhost:5000/api/";
+import Login from "./login/Login";
+import Register from "./register/Register";
+import Messages from "./messages/Messages";
+import NotFound from "./special pages/notFound";
 
 function App() {
   return (

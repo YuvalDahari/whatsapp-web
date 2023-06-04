@@ -15,7 +15,7 @@ io.on("connection", (socket) => {
   console.log("New client connected");
 
   // Handle the 'login' event
-  socket.on("login", ({ username }) => {
+  socket.on("login", (username) => {
     // Store the socket with the username in the map
     socketsMap.set(username, socket);
   }),
@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
 
       let reciverUsername = getUserByID(data.reciverId);
       if (socketsMap.has(reciverUsername)) {
-        socket.emit("newMsg", {
+        socketsMap.get(reciverUsername).emit("newMsg", {
           sender: data.sender,
         })
       }
@@ -45,7 +45,7 @@ io.on("connection", (socket) => {
       socketsMap.delete(username); // Remove the client from the map
 
       // Delete when finish
-      console.log(`Client with username ${username} disconnected`);
+      console.log("Client disconnected");
     }
   });
 });

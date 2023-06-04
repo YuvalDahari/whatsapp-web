@@ -1,11 +1,11 @@
 import { useState, useEffect, createContext } from 'react';
 import ChatSection from "../chatSection/ChatSection.js";
-import Conversations from "../conversations/Conversations.js";
 import NewChatModal from "../conversations/NewChatModal.js";
 import ThemeModal from './ThemeModal.js';
 import "./Messages.css"
 import { useNavigate } from "react-router-dom";
 import socketManager from '../socketManager/socketManager.js';
+import { Conversations } from '../conversations/Conversations.js';
 
 export const RefreshContext = createContext();
 export const CurrentConversationContext = createContext();  
@@ -25,7 +25,7 @@ function Messages() {
     function logout() {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('currConversation');
-        socketManager.disconnect;                    
+        socketManager.disconnect();                    
         navigate('/login');
     }
     

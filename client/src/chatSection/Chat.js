@@ -4,14 +4,13 @@ import Message from "./Message";
 import { fetchWithToken } from '../tokenManager/tokenManager';
 import { RefreshContext, CurrentConversationContext } from "../messages/Messages";  // import CurrentConversationContext
 
-export const [messagesData, setMessagesData] = useState([]);
 
 function Chat() {
     const messagesEndRef = useRef(null)
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView()
     }
-
+    const [messagesData, setMessagesData] = useState([]);
     const [currentUser, ] = useState(JSON.parse(localStorage.getItem('currentUser')) || {});
 
     const { refresh, setRefresh } = useContext(RefreshContext);

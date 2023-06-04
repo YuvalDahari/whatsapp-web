@@ -4,23 +4,24 @@ import ConversationsHeader from './ConversationsHeader';
 import { fetchWithToken } from '../tokenManager/tokenManager';
 import { RefreshContext, CurrentConversationContext } from '../messages/Messages';  // import CurrentConversationContext
 
-const [conversationsData, setConversationsData] = useState([]);
 
-const { refresh } = useContext(RefreshContext);
-const { setCurrConversation } = useContext(CurrentConversationContext);
+// new function - need to be in the server!!!!
+export function AddNotification(username) {
+  const [conversationsData, setConversationsData] = useState([]);
 
-// new function
-function addNotification(username) {
   const conversationsWithNotification = conversationsData;
   conversationsWithNotification.forEach(conv => {
     if (conv.username === username) {
       conv.flag += 1; // increase the num of unread massage by one
     }
   });
+  return(<></>);
 }
 
-function Conversations() {
-
+export function Conversations() {
+  const { refresh } = useContext(RefreshContext);
+  const { setCurrConversation } = useContext(CurrentConversationContext);
+  const [conversationsData, setConversationsData] = useState([]);
   const fetchConversations = async () => {
     const req = {
       path: `Chats`,
@@ -53,7 +54,7 @@ function Conversations() {
     });
 
     sortedConversations.forEach(conversation => {
-      conversation = { ...conversation, flag: 0 };
+      conversation = { ...conversation };
     });
     setConversationsData(sortedConversations);
   };
@@ -68,7 +69,7 @@ function Conversations() {
       username: conversation.user.username,
       displayName: conversation.user.displayName,
       profilePic: conversation.user.profilePic,
-      flag: 0 // init flag to 0
+      flag: conversation.flag,
     }
     setCurrConversation(newConversation);
   };
@@ -94,4 +95,7 @@ function Conversations() {
 
 }
 
-module.exports = { Conversations, addNotification};
+export default{
+  Conversations,
+  AddNotification,
+}

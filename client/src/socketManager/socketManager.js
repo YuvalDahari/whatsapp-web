@@ -1,13 +1,12 @@
 import { io } from 'socket.io-client';
-import { serverPath } from '../../App';
-import { addNotification } from '../conversations/Conversations'
+import { AddNotification } from '../conversations/Conversations'
 
 const socketManager = {
   socket: null,
 
   connect: () => {
     // Establish socket connection with the server
-    socketManager.socket = io( serverPath );
+    socketManager.socket = io( process.env.REACT_APP_SERVER_PATH );
 
     // Delete when its work
     console.log("Socket connected");
@@ -18,7 +17,7 @@ const socketManager = {
     console.log("Received newMsg event:", data);
 
     let sender = data.sender;
-    addNotification(sender);
+    AddNotification(sender);
   },
 
   addNewMsgListener: () => {
