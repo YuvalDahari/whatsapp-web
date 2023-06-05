@@ -2,12 +2,11 @@ import React, { useContext } from "react";
 import { fetchWithToken } from "../tokenManager/tokenManager";
 import { CurrentConversationContext, RefreshContext } from "../messages/Messages";
 
-function Conversation({ id, name, time, message: lastMessage, img: image, newMsg: flag}) {
+function Conversation({ id, name, time, message: lastMessage, img: image}) {
   const { currConversation, setCurrConversation } = useContext(CurrentConversationContext);
   const { refresh, setRefresh } = useContext(RefreshContext);
 
   let mediaClass = 'media' + (currConversation && currConversation.id === id ? ' current-conversation' : '');
-  let notification = flag === 0 ? '' : 'new-message';
 
   const handleDelete = async () => {
     let duplicateConversation = null;
@@ -29,7 +28,7 @@ function Conversation({ id, name, time, message: lastMessage, img: image, newMsg
   };
 
   return (
-    <div className={`${mediaClass} ${notification}`}>
+    <div className={`${mediaClass}`}>
       <img className="avatar" src={image} alt="avatar" />
       <div className="name">{name}</div>
       <div className="time">{time}</div>

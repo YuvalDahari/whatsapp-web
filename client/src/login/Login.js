@@ -4,7 +4,6 @@ import FormItem from "../form/FormItem.js";
 import "./Login.css"
 import FormBottom from '../form/FormBottom.js';
 import { fetchWithToken } from '../tokenManager/tokenManager.js';
-import socketManager from '../socketManager/socketManager.js';
 
 function Login() {
     const password = useRef();
@@ -95,14 +94,6 @@ function Login() {
                 } else {
                     const token = await response.text();
                     localStorage.setItem('currentUser', JSON.stringify({username: username.val, token: token}));
-                    
-                    // Establish socket connection
-                    socketManager.connect();
-                    // Add event listener for the "newMsg" event
-                    socketManager.addNewMsgListener();                    
-                    // Send the 'login' event
-                    socketManager.socket.emit("login", { username });
-
                     navigate('/messages');
                 }
             } catch (error) {

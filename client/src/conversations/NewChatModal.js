@@ -60,7 +60,7 @@ function NewChatModal() {
                 body: JSON.stringify(reqBody),
             };
             const res = await fetchWithToken(req);
-            if (res.status === 400) {
+            if (res.status === 401) {
                 setError('There is no such user');
                 return;
             }

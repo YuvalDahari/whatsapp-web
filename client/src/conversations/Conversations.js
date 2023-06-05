@@ -3,20 +3,7 @@ import Conversation from "./Conversation";
 import ConversationsHeader from './ConversationsHeader';
 import { fetchWithToken } from '../tokenManager/tokenManager';
 import { RefreshContext, CurrentConversationContext } from '../messages/Messages';  // import CurrentConversationContext
-
-
-// new function - need to be in the server!!!!
-export function AddNotification(username) {
-  const [conversationsData, setConversationsData] = useState([]);
-
-  const conversationsWithNotification = conversationsData;
-  conversationsWithNotification.forEach(conv => {
-    if (conv.username === username) {
-      conv.flag += 1; // increase the num of unread massage by one
-    }
-  });
-  return(<></>);
-}
+import { socket } from '../App';
 
 export function Conversations() {
   const { refresh } = useContext(RefreshContext);
@@ -58,9 +45,20 @@ export function Conversations() {
     });
     setConversationsData(sortedConversations);
   };
-
+  let i = 0;
   useEffect(() => {
-    fetchConversations();
+    if (i++ === 0){
+      fetchConversations();
+    }
+
+    socket.on("newMsg", (chatId) => {
+      // update for specific chat
+      fetchConversations();
+    });
+
+    return () => {
+      i = 0;
+    }
   }, [refresh]);
 
   const handleConversationClick = (conversation) => {
@@ -69,7 +67,6 @@ export function Conversations() {
       username: conversation.user.username,
       displayName: conversation.user.displayName,
       profilePic: conversation.user.profilePic,
-      flag: conversation.flag,
     }
     setCurrConversation(newConversation);
   };
@@ -95,7 +92,4 @@ export function Conversations() {
 
 }
 
-export default{
-  Conversations,
-  AddNotification,
-}
+export default Conversations;
