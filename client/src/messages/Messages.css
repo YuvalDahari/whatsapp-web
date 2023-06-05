@@ -388,8 +388,3 @@ body {
 .input-bg-color {
     background-color: var(--main-text-color);
 }
-
-/* just for testing.. */
-.notification {
-    background-color: red;
-}
