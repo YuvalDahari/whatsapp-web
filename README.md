@@ -33,7 +33,7 @@ TOKEN_KEY="secretkeyy!"
 - PORT is the port the server runs on, adapt if needed (for example if the post is already used).
 - TOKEN_KEY is a secret key for the JWT tokens the server uses for authentication. Set it to a secret string of your choice. You should change the default value.
 
-If you want you can also create .env.test file and .env file (with the same fields), but you only need one of them to run the server correctly.
+If you want you can also change .env.test file and .env file (with the same fields), but you only need one of them to run the server correctly.
 
 To run the server after this file is set, run one of the following commands:
 
@@ -47,9 +47,9 @@ If you run the server, you can access the client from the browser by navigating 
 
 Follow these instruction to run the client on your local machine:
 
-1. Go to "our-whatsapp-1b" folder - the project folder.
+1. Go to "client" folder inside the project.
 2. Run "npm install".
-3. Update config/.env.local file. Template is provided in this form:
+3. Update .env file. Template is provided in this form:
 <pre>
 REACT_APP_SERVER_PATH=http://localhost:12345
 REACT_APP_IO_SOCKET=http://127.0.0.1:12345
