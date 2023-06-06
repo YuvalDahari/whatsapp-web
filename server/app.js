@@ -37,11 +37,11 @@ io.on("connection", (socket) => {
       socket.on("newMsg", (chatId) => {
         // Handle the 'newMsg' event
         console.log("Received newMsg event:", chatId);
-        socket.broadcast.emit("newMsg", chatId);
+        socket.broadcast.emit("newMsg", { chatId: chatId });
       });
   });
 
-server.listen(process.env.PORT)
+server.listen(process.env.PORT);
 
 
 

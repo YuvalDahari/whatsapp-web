@@ -47,16 +47,22 @@ function Conversations({refreshMessages, setRefreshMessages}) {
 
     useEffect(() => {
       fetchConversations();
-      const newMessageHandler = (data) => {
-        alert("you have a new message");
-        fetchConversations();
-        setRefreshMessages(true);
-      };
-      socket.on("newMsg", newMessageHandler);
+      socket.on("newMsg", (data) => {
+        const id = data.chatId;
 
+        // checks if the conversation is in my conversations' list
+        const isConversationExists = conversationsData.some((conversation) => conversation.id === id);
+        
+        if (isConversationExists) {
+          alert(id);
+          fetchConversations();
+          setRefreshMessages(true);
+        }
+      });
+      
       // Cleanup function
       return () => {
-        socket.off("newMsg", newMessageHandler);
+        socket.off("newMsg");
       }
     }, [refresh]);
 
