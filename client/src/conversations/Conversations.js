@@ -7,10 +7,9 @@ import { socket } from '../App';
 
 function Conversations({refreshMessages, setRefreshMessages}) {
     const [conversationsData, setConversationsData] = useState([]);
-    const [isToastVisible, setToastVisible] = useState(false);
-    
+    const [newMessageConvIds, setNewMessageConvIds] = useState([]);    
     const { refresh, } = useContext(RefreshContext);
-    const { setCurrConversation } = useContext(CurrentConversationContext); 
+    const {currConversation, setCurrConversation } = useContext(CurrentConversationContext); 
 
     const fetchConversations = async () => {
       const req = {
@@ -54,7 +53,7 @@ function Conversations({refreshMessages, setRefreshMessages}) {
         const isConversationExists = conversationsData.some((conversation) => conversation.id === id);
         
         if (isConversationExists) {
-          alert(id);
+          setNewMessageConvIds((prevIds) => [...prevIds, id]);
           fetchConversations();
           setRefreshMessages(true);
         }
@@ -64,7 +63,7 @@ function Conversations({refreshMessages, setRefreshMessages}) {
       return () => {
         socket.off("newMsg");
       }
-    }, [refresh]);
+    }, [refresh, conversationsData, setRefreshMessages]);
 
     const handleConversationClick = (conversation) => {
         let newConversation = {
@@ -73,6 +72,10 @@ function Conversations({refreshMessages, setRefreshMessages}) {
             displayName : conversation.user.displayName,
             profilePic : conversation.user.profilePic,
         }
+        if (currConversation) {
+          setNewMessageConvIds((prevIds) => prevIds.filter((id) => id !== currConversation.id));
+        }
+        setNewMessageConvIds((prevIds) => prevIds.filter((id) => id !== conversation.id));
         setCurrConversation(newConversation);
         setRefreshMessages(true);
     }; 
@@ -91,6 +94,8 @@ function Conversations({refreshMessages, setRefreshMessages}) {
                 message={conversation.lastMessage ? conversation.lastMessage.content : ""} 
                 img={conversation.user.profilePic}
                 setRefreshMessages={ setRefreshMessages}
+                hasNewMessage={newMessageConvIds.includes(conversation.id)}
+                setNewMessageConvIds = {setNewMessageConvIds}
               />
             </div>
           ))}
