@@ -10,8 +10,8 @@ Follow these instructions to set up the project on your local machine:
 1. Ensure a web browser is installed to run HTML and CSS files.
 2. Enter the following commands in your terminal:
 <pre>
-git clone https://github.com/yonikal56/our-whatsapp-1b
-cd our-whatsapp-1b
+git clone https://github.com/yonikal56/our-whatsapp-2
+cd our-whatsapp-2
 </pre>
 
 ### Run Server
