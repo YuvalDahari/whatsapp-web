@@ -8,16 +8,16 @@ function Conversation({ id, name, time, message: lastMessage, img: image, setRef
 
 
   let mediaClass = 'media';
-  if (currConversation.id === id && hasNewMessage) {
+  if (currConversation && currConversation.id === id && hasNewMessage) {
     mediaClass += ' special-conversation';
-  }else if (currConversation.id === id) {
+  }else if (currConversation && currConversation.id === id) {
     mediaClass += ' current-conversation';
   } else if (hasNewMessage){
     mediaClass += ' currentAndNewMessage';
   }
 
   useEffect(() => {
-    if (currConversation.id === id) {
+    if (currConversation && currConversation.id === id) {
       setNewMessageConvIds((prevIds) => prevIds.filter((prevId) => prevId !== id));
     }
   }, [currConversation, id, setNewMessageConvIds]);
