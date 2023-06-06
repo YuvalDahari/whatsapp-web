@@ -11,10 +11,7 @@ app.use(express.static('public'));
 const socketsMap = new Map();
 
 io.on("connection", (socket) => {
-  // Delete when finish
-  console.log("New client connected");
-
-  // Handle the 'login' event
+    // Handle the 'login' event
   socket.on("login", (username) => {
     // Store the socket with the username in the map
     socketsMap.set(username, socket);

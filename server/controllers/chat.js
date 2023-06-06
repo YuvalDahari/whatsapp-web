@@ -6,7 +6,7 @@ const createChat = async (req, res) => {
     }
     const json = await chatService.createChat(req.username, req.body.username);
     if (!json) {
-        return res.status(401).end();
+        return res.status(400).end();
     }
     res.json(json);
 };

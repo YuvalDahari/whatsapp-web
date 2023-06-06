@@ -38,18 +38,14 @@ const createChat = async (firstUsername, secondUsername) => {
 
 const getChats = async (username) => {
     try {
-        // get all chats the username is part of
-        // get user id and find all chats is part of
         const user = await UserService.getIDByUsername(username);
         if (!user) {
             return false;
         }
         const chats = await Chat.find({ users: user._id });
-        const returnChats = [];
-        // user is the second user
-        // lastMessage field - null if no, if there is - id, created, content
-        for (i = 0; i < chats.length; i++) {
-            const chat = chats[i];
+        
+        // Map each chat to a Promise that will fetch its details
+        const chatPromises = chats.map(async (chat) => {
             let returnChat = {
                 id: chat._id
             };
@@ -65,13 +61,18 @@ const getChats = async (username) => {
                     content: last.content
                 };
             }
-            returnChats.push(returnChat);
-        }
+            return returnChat;
+        });
+        
+        // Execute all the promises in parallel and wait for them to finish
+        const returnChats = await Promise.all(chatPromises);
+        
         return returnChats;
     } catch {
         return false;
     }
-}
+};
+
 
 const getMessageByID = async (ID) => {
     try {

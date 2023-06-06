@@ -21,7 +21,6 @@ function Login() {
     });
 
     let navigate = useNavigate();
-    let socket;
 
     function validateValue(regex, value, field, error) {
         let flag = regex.test(value);

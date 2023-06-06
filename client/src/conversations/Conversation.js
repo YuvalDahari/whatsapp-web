@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { fetchWithToken } from "../tokenManager/tokenManager";
 import { CurrentConversationContext, RefreshContext } from "../messages/Messages";
 
-function Conversation({ id, name, time, message: lastMessage, img: image}) {
+function Conversation({ id, name, time, message: lastMessage, img: image, setRefreshMessages}) {
   const { currConversation, setCurrConversation } = useContext(CurrentConversationContext);
   const { refresh, setRefresh } = useContext(RefreshContext);
 
@@ -25,6 +25,7 @@ function Conversation({ id, name, time, message: lastMessage, img: image}) {
     await fetchWithToken(req);
     setRefresh(!refresh); // Refresh the list of conversations
     setCurrConversation(duplicateConversation);
+    setRefreshMessages(true);
   };
 
   return (
