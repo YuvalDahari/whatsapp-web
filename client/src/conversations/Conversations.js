@@ -7,10 +7,9 @@ import { socket } from '../App';
 
 function Conversations({refreshMessages, setRefreshMessages}) {
     const [conversationsData, setConversationsData] = useState([]);
-    const [isToastVisible, setToastVisible] = useState(false);
-    
+    const [newMessageConvIds, setNewMessageConvIds] = useState([]);    
     const { refresh, } = useContext(RefreshContext);
-    const { setCurrConversation } = useContext(CurrentConversationContext); 
+    const {currConversation, setCurrConversation } = useContext(CurrentConversationContext); 
 
     const fetchConversations = async () => {
       const req = {
@@ -47,18 +46,24 @@ function Conversations({refreshMessages, setRefreshMessages}) {
 
     useEffect(() => {
       fetchConversations();
-      const newMessageHandler = (data) => {
-        alert("you have a new message");
-        fetchConversations();
-        setRefreshMessages(true);
-      };
-      socket.on("newMsg", newMessageHandler);
+      socket.on("newMsg", (data) => {
+        const id = data.chatId;
 
+        // checks if the conversation is in my conversations' list
+        const isConversationExists = conversationsData.some((conversation) => conversation.id === id);
+        
+        if (isConversationExists) {
+          setNewMessageConvIds((prevIds) => [...prevIds, id]);
+          fetchConversations();
+          setRefreshMessages(true);
+        }
+      });
+      
       // Cleanup function
       return () => {
-        socket.off("newMsg", newMessageHandler);
+        socket.off("newMsg");
       }
-    }, [refresh]);
+    }, [refresh, conversationsData, setRefreshMessages]);
 
     const handleConversationClick = (conversation) => {
         let newConversation = {
@@ -67,6 +72,10 @@ function Conversations({refreshMessages, setRefreshMessages}) {
             displayName : conversation.user.displayName,
             profilePic : conversation.user.profilePic,
         }
+        if (currConversation) {
+          setNewMessageConvIds((prevIds) => prevIds.filter((id) => id !== currConversation.id));
+        }
+        setNewMessageConvIds((prevIds) => prevIds.filter((id) => id !== conversation.id));
         setCurrConversation(newConversation);
         setRefreshMessages(true);
     }; 
@@ -85,6 +94,8 @@ function Conversations({refreshMessages, setRefreshMessages}) {
                 message={conversation.lastMessage ? conversation.lastMessage.content : ""} 
                 img={conversation.user.profilePic}
                 setRefreshMessages={ setRefreshMessages}
+                hasNewMessage={newMessageConvIds.includes(conversation.id)}
+                setNewMessageConvIds = {setNewMessageConvIds}
               />
             </div>
           ))}
