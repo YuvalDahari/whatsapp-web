@@ -33,10 +33,8 @@ app.use('/api/Chats', chats);
 
 io.on("connection", (socket) => {
     // Delete when finish
-    console.log("New client connected");
       socket.on("newMsg", (chatId) => {
         // Handle the 'newMsg' event
-        console.log("Received newMsg event:", chatId);
         socket.broadcast.emit("newMsg", { chatId: chatId });
         socket.broadcast.emit("newMsg", { chatId: chatId });
       });

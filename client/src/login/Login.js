@@ -96,7 +96,7 @@ function Login() {
                     navigate('/messages');
                 }
             } catch (error) {
-                console.log("Failed to send request: ", error);
+                
             }
         }
     }
