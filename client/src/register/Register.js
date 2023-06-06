@@ -121,7 +121,7 @@ function Register() {
               navigate('/login');
             }
           } catch (error) {
-            console.log("Failed to send request: ", error);
+            
           }
         }
       }

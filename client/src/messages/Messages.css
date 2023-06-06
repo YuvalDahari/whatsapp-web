@@ -311,7 +311,7 @@ body {
     display: flex;
     border-radius: 10px;
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 .media-body {

@@ -19,7 +19,6 @@ io.on("connection", (socket) => {
 
     socket.on("newMsg", (data) => {
       // Handle the 'newMsg' event
-      console.log("Received newMsg event:", data);
 
       let reciverUsername = getUserByID(data.reciverId);
       if (socketsMap.has(reciverUsername)) {
@@ -42,7 +41,6 @@ io.on("connection", (socket) => {
       socketsMap.delete(username); // Remove the client from the map
 
       // Delete when finish
-      console.log("Client disconnected");
     }
   });
 });

@@ -27,16 +27,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static('public'));
+app.get('/messages', function(req, res) {
+  res.sendFile('index.html', {root: 'public'});
+});
+app.get('/login', function(req, res) {
+  res.sendFile('index.html', {root: 'public'});
+});
+app.get('/register', function(req, res) {
+  res.sendFile('index.html', {root: 'public'});
+});
+
 app.use('/api/Tokens', tokens);
 app.use('/api/Users', users);
 app.use('/api/Chats', chats);
 
 io.on("connection", (socket) => {
     // Delete when finish
-    console.log("New client connected");
       socket.on("newMsg", (chatId) => {
         // Handle the 'newMsg' event
-        console.log("Received newMsg event:", chatId);
         socket.broadcast.emit("newMsg", { chatId: chatId });
         socket.broadcast.emit("newMsg", { chatId: chatId });
       });

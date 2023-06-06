@@ -2,17 +2,22 @@ import React, { useEffect, useContext } from "react";
 import { fetchWithToken } from "../tokenManager/tokenManager";
 import { CurrentConversationContext, RefreshContext } from "../messages/Messages";
 
-function Conversation({ id, name, time, message: lastMessage, img: image, setRefreshMessages, hasNewMessage, setNewMessageConvIds}) {
+function Conversation({ id, name, time, message: lastMessage, img: image, setRefreshMessages, hasNewMessage, setNewMessageConvIds }) {
   const { currConversation, setCurrConversation } = useContext(CurrentConversationContext);
   const { refresh, setRefresh } = useContext(RefreshContext);
 
 
   let mediaClass = 'media';
   if (currConversation && currConversation.id === id && hasNewMessage) {
-    mediaClass += ' special-conversation';
-  }else if (currConversation && currConversation.id === id) {
+    mediaClass += ' special-conversation current-conversation';
+    setTimeout(() => {
+      if (document.getElementById('current-chat-id').classList) {
+        document.getElementById('current-chat-id').classList.remove('special-conversation');
+      }
+    }, 5000);
+  } else if (currConversation && currConversation.id === id) {
     mediaClass += ' current-conversation';
-  } else if (hasNewMessage){
+  } else if (hasNewMessage) {
     mediaClass += ' currentAndNewMessage';
   }
 
@@ -43,7 +48,7 @@ function Conversation({ id, name, time, message: lastMessage, img: image, setRef
   };
 
   return (
-    <div className={`${mediaClass}`}>
+    <div id="current-chat-id" className={`${mediaClass}`}>
       <img className="avatar" src={image} alt="avatar" />
       <div className="name">{name}</div>
       <div className="time">{time}</div>

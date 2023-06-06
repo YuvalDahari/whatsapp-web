@@ -11,6 +11,10 @@ function ChatFooter({refreshMessages, setRefreshMessages}) {
   const { refresh, setRefresh } = useContext(RefreshContext);  // get refresh and setRefresh from context
 
   async function handleMsg () {
+    if (!currConversation || !currConversation.id) {
+      return;
+    }
+
     let message = {
       msg : messageText,
     }
@@ -55,7 +59,7 @@ function ChatFooter({refreshMessages, setRefreshMessages}) {
             className="btn btn-outline-secondary footer-btn"
             type="button"
             onClick={handleMsg}
-            disabled={ messageText === "" || !currConversation}
+            disabled={ messageText === "" || !currConversation || !currConversation.id}
           >
             Send
           </button>
