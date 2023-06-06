@@ -9,7 +9,10 @@ function Conversation({ id, name, time, message: lastMessage, img: image, setRef
 
   let mediaClass = 'media';
   if (currConversation && currConversation.id === id && hasNewMessage) {
-    mediaClass += ' special-conversation';
+    mediaClass += ' special-conversation current-conversation';
+    setTimeout(() => {
+      document.getElementById('current-chat-id').classList.remove('special-conversation');
+    }, 5000);
   }else if (currConversation && currConversation.id === id) {
     mediaClass += ' current-conversation';
   } else if (hasNewMessage){
@@ -43,7 +46,7 @@ function Conversation({ id, name, time, message: lastMessage, img: image, setRef
   };
 
   return (
-    <div className={`${mediaClass}`}>
+    <div id="current-chat-id" className={`${mediaClass}`}>
       <img className="avatar" src={image} alt="avatar" />
       <div className="name">{name}</div>
       <div className="time">{time}</div>
