@@ -25,7 +25,6 @@ function ChatFooter({refreshMessages, setRefreshMessages}) {
       body : JSON.stringify(message),
     };
     await fetchWithToken(req);
-
     socket.emit("newMsg", currConversation.id);
     setRefreshMessages(true);
     setMessageText('');  // Clear the message input after sending

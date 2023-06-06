@@ -21,7 +21,7 @@ function Conversations({refreshMessages, setRefreshMessages}) {
       };
       const response = await fetchWithToken(req);
       const conversations = await response.json();
-      
+
       const sortedConversations = conversations.sort((a, b) => {
         const lastMsgA = a.lastMessage ? a.lastMessage.created : '';
         const lastMsgB = b.lastMessage ? b.lastMessage.created : '';
