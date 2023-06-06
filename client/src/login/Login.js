@@ -66,7 +66,6 @@ function Login() {
             }
         }
     }
-    
 
     async function tryLogin() {
         let flag1 = validateValue(regexes.username, username.val ? username.val : "", "username", "Username is invalid");

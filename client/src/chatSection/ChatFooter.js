@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { fetchWithToken } from '../tokenManager/tokenManager';
 import { CurrentConversationContext, RefreshContext } from "../messages/Messages";  // import RefreshContext
+import { socket } from '../App';
 
-function ChatFooter() {
+function ChatFooter({refreshMessages, setRefreshMessages}) {
   const [messageText, setMessageText] = useState('');
 
   // Get the currConversation state and refresh function from the context
@@ -24,8 +25,10 @@ function ChatFooter() {
       body : JSON.stringify(message),
     };
     await fetchWithToken(req);
+    socket.emit("newMsg", currConversation.id);
+    setRefreshMessages(true);
     setMessageText('');  // Clear the message input after sending
-    setRefresh(!refresh);  // Flip the refresh state to trigger re-fetch of messages
+    setRefresh(!refresh); 
   };
 
   const handleKeyDown = (e) => {

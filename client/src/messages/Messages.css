@@ -10,6 +10,8 @@
     --highlight-color: #96d49c;
     --main-image: url('../../public/photos/3.jpg'); 
     --back-image: url('../../public/photos/7.jpg');
+    --alert-color: #ea1010;
+    --alert-color: #ea1010;
 
 }
 /* .green {
@@ -37,7 +39,7 @@
     --highlight-color: rgb(33, 60, 55);
     --main-image: url('../../public/photos/5.png');
     --back-image: url('../../public/photos/9.png');
-
+    --alert-color: #00eeff;
 }
 
 /* Girly Theme */
@@ -52,7 +54,7 @@
     --highlight-color: #ff85ab;
     --main-image: url('../../public/photos/6.jpg');
     --back-image: url('../../public/photos/8.jpg');
-
+    --alert-color: #e5ff00;
 }
 
 /* if one want to add more themes - HERE :) */
@@ -407,15 +409,18 @@ body {
     border-top: 2px solid var(--main-text-color);
 }
 
-.media {
-    display: flex;
-}
-
 .current-conversation {
     background-color: var(--message-bg-color-right);
     background-clip: padding-box;
 }
 
+.currentAndNewMessage {
+    border: 2px solid var(--alert-color);
+}
+.special-conversation {
+    border: 2px solid green;
+}
+
 .input-bg-color {
-    background-color: var(--main-text-color);
+    background-color: red;
 }

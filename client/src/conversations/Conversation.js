@@ -1,12 +1,26 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { fetchWithToken } from "../tokenManager/tokenManager";
 import { CurrentConversationContext, RefreshContext } from "../messages/Messages";
 
-function Conversation({ id, name, time, message: lastMessage, img: image }) {
+function Conversation({ id, name, time, message: lastMessage, img: image, setRefreshMessages, hasNewMessage, setNewMessageConvIds}) {
   const { currConversation, setCurrConversation } = useContext(CurrentConversationContext);
   const { refresh, setRefresh } = useContext(RefreshContext);
 
-  let mediaClass = 'media' + (currConversation && currConversation.id === id ? ' current-conversation' : '');
+
+  let mediaClass = 'media';
+  if (currConversation && currConversation.id === id && hasNewMessage) {
+    mediaClass += ' special-conversation';
+  }else if (currConversation && currConversation.id === id) {
+    mediaClass += ' current-conversation';
+  } else if (hasNewMessage){
+    mediaClass += ' currentAndNewMessage';
+  }
+
+  useEffect(() => {
+    if (currConversation && currConversation.id === id) {
+      setNewMessageConvIds((prevIds) => prevIds.filter((prevId) => prevId !== id));
+    }
+  }, [currConversation, id, setNewMessageConvIds]);
 
   const handleDelete = async () => {
     let duplicateConversation = null;
@@ -25,6 +39,7 @@ function Conversation({ id, name, time, message: lastMessage, img: image }) {
     await fetchWithToken(req);
     setRefresh(!refresh); // Refresh the list of conversations
     setCurrConversation(duplicateConversation);
+    setRefreshMessages(true);
   };
 
   return (

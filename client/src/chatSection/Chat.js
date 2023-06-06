@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import ChatHeader from "./ChatHeader";
 import Message from "./Message";
 import { fetchWithToken } from '../tokenManager/tokenManager';
-import { RefreshContext, CurrentConversationContext } from "../messages/Messages";  // import CurrentConversationContext
+import { CurrentConversationContext } from "../messages/Messages";  // import CurrentConversationContext
 
-function Chat() {
+function Chat({refreshMessages, setRefreshMessages, refresh, setRefresh}) {
     const messagesEndRef = useRef(null)
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView()
@@ -13,29 +13,30 @@ function Chat() {
     const [messagesData, setMessagesData] = useState([]);
     const [currentUser, ] = useState(JSON.parse(localStorage.getItem('currentUser')) || {});
 
-    const { refresh, setRefresh } = useContext(RefreshContext);
     const { currConversation } = useContext(CurrentConversationContext);
 
     useEffect(() => {
-        const fetchMessages = async () => {
-            const req = {
-                path: `Chats/${currConversation.id}/Messages`,
-                method: 'GET',
-                headers: {
-                    'Accept': 'text/plain',
-                },
+        if (refreshMessages) {
+            const fetchMessages = async () => {
+                const req = {
+                    path: `Chats/${currConversation.id}/Messages`,
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'text/plain',
+                    },
+                };
+                const response = await fetchWithToken(req);
+                setMessagesData(await response.json());
             };
-            const response = await fetchWithToken(req);
-            setMessagesData(await response.json());
-            setRefresh(!refresh);
-        };
 
-        if (currConversation && currConversation.id) {
-            fetchMessages();
-        } else {
-            setMessagesData([]);  // Clear the messages if there's no current conversation
+            if (currConversation && currConversation.id) {
+                fetchMessages();
+            } else {
+                setMessagesData([]);  // Clear the messages if there's no current conversation
+            }
         }
-    }, [currConversation, refresh, setRefresh]);
+        setRefreshMessages(false);
+    }, [currConversation, refreshMessages, setRefreshMessages]);
     
 
     useEffect(scrollToBottom, [messagesData]);

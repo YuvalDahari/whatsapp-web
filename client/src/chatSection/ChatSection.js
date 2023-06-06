@@ -1,11 +1,13 @@
 import Chat from "./Chat";
 import ChatFooter from "./ChatFooter";
 
-function ChatSection() {
+function ChatSection({refreshMessages, setRefreshMessages, refresh, setRefresh}) {
     return (
         <div id="messages-section">
-            <Chat />
-            <ChatFooter />
+            <Chat refreshMessages={refreshMessages} setRefreshMessages={setRefreshMessages}
+            refresh = {refresh} setRefresh = {setRefresh} />
+            <ChatFooter refreshMessages={refreshMessages} setRefreshMessages={setRefreshMessages}
+            refresh = {refresh} setRefresh = {setRefresh} />
         </div>
     );
 }
