@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { fetchWithToken } from "../tokenManager/tokenManager";
 import { CurrentConversationContext, RefreshContext } from "../messages/Messages";
 
-function Conversation({ id, name, time, message: lastMessage, img: image, setRefreshMessages, hasNewMessage, setNewMessageConvIds}) {
+function Conversation({ id, name, time, message: lastMessage, img: image, setRefreshMessages, hasNewMessage, setNewMessageConvIds }) {
   const { currConversation, setCurrConversation } = useContext(CurrentConversationContext);
   const { refresh, setRefresh } = useContext(RefreshContext);
 
@@ -11,11 +11,13 @@ function Conversation({ id, name, time, message: lastMessage, img: image, setRef
   if (currConversation && currConversation.id === id && hasNewMessage) {
     mediaClass += ' special-conversation current-conversation';
     setTimeout(() => {
-      document.getElementById('current-chat-id').classList.remove('special-conversation');
+      if (document.getElementById('current-chat-id').classList) {
+        document.getElementById('current-chat-id').classList.remove('special-conversation');
+      }
     }, 5000);
-  }else if (currConversation && currConversation.id === id) {
+  } else if (currConversation && currConversation.id === id) {
     mediaClass += ' current-conversation';
-  } else if (hasNewMessage){
+  } else if (hasNewMessage) {
     mediaClass += ' currentAndNewMessage';
   }
 
