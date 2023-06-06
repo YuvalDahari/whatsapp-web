@@ -38,6 +38,7 @@ io.on("connection", (socket) => {
         // Handle the 'newMsg' event
         console.log("Received newMsg event:", chatId);
         socket.broadcast.emit("newMsg", { chatId: chatId });
+        socket.broadcast.emit("newMsg", { chatId: chatId });
       });
   });
 
